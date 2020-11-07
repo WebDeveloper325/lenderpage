@@ -1,60 +1,44 @@
 <template>
-  <div class="row">
-    <div class="col-lg-8 m-auto">
-      <card title="login">
-        <form @submit.prevent="login" @keydown="form.onKeydown($event)">
-          <!-- Email -->
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label text-md-right">Email</label>
-            <div class="col-md-7">
-              <input
-                v-model="form.email"
-                :class="{ 'is-invalid': form.errors.has('email') }"
-                class="form-control"
-                type="email"
-                name="email"
-              />
-              <has-error :form="form" field="email" />
-            </div>
-          </div>
+  <b-col lg="8" class="m-auto">
+    <card title="Login">
+      <b-col md="10" offset-md="1">
+        <b-form @submit="onLogin">
+          <vee-text-input
+            rules="required|email"
+            label="Email"
+            label-cols="2"
+            name="Email"
+            v-model="form.email"
+            placeholder="Your Email"
+          />
 
-          <!-- Password -->
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label text-md-right">Password</label>
-            <div class="col-md-7">
-              <input
-                v-model="form.password"
-                :class="{ 'is-invalid': form.errors.has('password') }"
-                class="form-control"
-                type="password"
-                name="password"
-              />
-              <has-error :form="form" field="password" />
-            </div>
-          </div>
+          <vee-text-input
+            rules="required"
+            label="Password"
+            label-cols="2"
+            name="Password"
+            type="password"
+            v-model="form.password"
+            placeholder=""
+          />
 
-          <!-- Remember Me -->
-          <div class="form-group row">
-            <div class="col-md-3" />
-            <div class="col-md-7 d-flex">
+          <b-container>
+            <b-row align-h="around">
               <checkbox v-model="remember" name="remember">Remember Me</checkbox>
 
               <router-link :to="{ name: 'password.request' }" class="small ml-auto my-auto">
                 Forgot Password
               </router-link>
-            </div>
-          </div>
+            </b-row>
+          </b-container>
 
-          <div class="form-group row">
-            <div class="col-md-7 offset-md-3 d-flex">
-              <!-- Submit Button -->
-              <v-button :loading="form.busy">Login</v-button>
-            </div>
-          </div>
-        </form>
-      </card>
-    </div>
-  </div>
+          <b-form-group align="center">
+            <b-button variant="primary">Login</b-button>
+          </b-form-group>
+        </b-form>
+      </b-col>
+    </card>
+  </b-col>
 </template>
 
 <script>
@@ -62,6 +46,8 @@ import Form from 'vform';
 import Cookies from 'js-cookie';
 
 export default {
+  layout: 'centered',
+
   middleware: 'guest',
 
   metaInfo() {
@@ -77,7 +63,7 @@ export default {
   }),
 
   methods: {
-    async login() {
+    async onLogin() {
       // Submit the form.
       const { data } = await this.form.post('/api/login');
 

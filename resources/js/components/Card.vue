@@ -1,21 +1,35 @@
 <template>
-  <div class="card">
-    <div v-if="title" class="card-header">
-      {{ title }}
-    </div>
+  <b-card>
+		<b-card-title v-if="title" class="card-title mb-4">
+			{{ title }}
+		</b-card-title>
 
-    <div class="card-body">
-      <slot />
-    </div>
-  </div>
+		<b-alert v-if="error" show variant="danger" dismissible>
+      {{ error }}
+    </b-alert>
+
+		<slot />
+  </b-card>
 </template>
 
 <script>
 export default {
-  name: 'Card',
+	name: 'Card',
 
-  props: {
-    title: { type: String, default: null },
-  },
-};
+	props: {
+		title: {
+			type: String,
+		},
+
+		error: {
+			type: String,
+		}
+	}
+}
 </script>
+
+<style lang="scss" scoped>
+.card-title {
+	text-align: center;
+}
+</style>
