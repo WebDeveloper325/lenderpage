@@ -38,9 +38,7 @@
 
           <!-- Password -->
           <div class="form-group row">
-            <label class="col-md-3 col-form-label text-md-right">
-              password
-            </label>
+            <label class="col-md-3 col-form-label text-md-right"> password </label>
             <div class="col-md-7">
               <input
                 v-model="form.password"
@@ -55,9 +53,7 @@
 
           <!-- Password Confirmation -->
           <div class="form-group row">
-            <label class="col-md-3 col-form-label text-md-right">
-              confirm_password
-            </label>
+            <label class="col-md-3 col-form-label text-md-right"> confirm_password </label>
             <div class="col-md-7">
               <input
                 v-model="form.password_confirmation"
@@ -85,21 +81,21 @@
 </template>
 
 <script>
-import Form from "vform";
+import Form from 'vform';
 
 export default {
-  middleware: "guest",
+  middleware: 'guest',
 
   metaInfo() {
-    return { title: "register" };
+    return { title: 'register' };
   },
 
   data: () => ({
     form: new Form({
-      name: "",
-      email: "",
-      password: "",
-      password_confirmation: "",
+      name: '',
+      email: '',
+      password: '',
+      password_confirmation: '',
     }),
     mustVerifyEmail: false,
   }),
@@ -107,7 +103,7 @@ export default {
   methods: {
     async register() {
       // Register the user.
-      const { data } = await this.form.post("/api/register");
+      const { data } = await this.form.post('/api/register');
 
       // Must verify email fist.
       if (data.status) {
@@ -116,16 +112,16 @@ export default {
         // Log in the user.
         const {
           data: { token },
-        } = await this.form.post("/api/login");
+        } = await this.form.post('/api/login');
 
         // Save the token.
-        this.$store.dispatch("auth/saveToken", { token });
+        this.$store.dispatch('auth/saveToken', { token });
 
         // Update the user.
-        await this.$store.dispatch("auth/updateUser", { user: data });
+        await this.$store.dispatch('auth/updateUser', { user: data });
 
         // Redirect home.
-        this.$router.push({ name: "home" });
+        this.$router.push({ name: 'home' });
       }
     },
   },

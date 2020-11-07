@@ -12,9 +12,7 @@ Vue.use(Router);
 const globalMiddleware = ['check-auth'];
 
 // Load middleware modules dynamically.
-const routeMiddleware = resolveMiddleware(
-  require.context('~/middleware', false, /.*\.js$/),
-);
+const routeMiddleware = resolveMiddleware(require.context('~/middleware', false, /.*\.js$/));
 
 const router = createRouter();
 
@@ -52,9 +50,7 @@ async function beforeEach(to, from, next) {
 
   try {
     // Get the matched components and resolve them.
-    components = await resolveComponents(
-      router.getMatchedComponents({ ...to }),
-    );
+    components = await resolveComponents(router.getMatchedComponents({ ...to }));
   } catch (error) {
     if (/^Loading( CSS)? chunk (\d)+ failed\./.test(error.message)) {
       window.location.reload(true);
@@ -157,7 +153,7 @@ function resolveComponents(components) {
   return Promise.all(
     components.map((component) => {
       return typeof component === 'function' ? component() : component;
-    }),
+    })
   );
 }
 
@@ -223,8 +219,5 @@ function resolveMiddleware(requireContext) {
   return requireContext
     .keys()
     .map((file) => [file.replace(/(^.\/)|(\.js$)/g, ''), requireContext(file)])
-    .reduce(
-      (guards, [name, guard]) => ({ ...guards, [name]: guard.default }),
-      {},
-    );
+    .reduce((guards, [name, guard]) => ({ ...guards, [name]: guard.default }), {});
 }

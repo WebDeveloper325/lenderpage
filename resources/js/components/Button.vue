@@ -16,17 +16,17 @@
 
 <script>
 export default {
-  name: "VButton",
+  name: 'VButton',
 
   props: {
     type: {
       type: String,
-      default: "primary",
+      default: 'primary',
     },
 
     nativeType: {
       type: String,
-      default: "submit",
+      default: 'submit',
     },
 
     loading: {

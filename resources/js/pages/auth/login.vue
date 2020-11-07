@@ -20,9 +20,7 @@
 
           <!-- Password -->
           <div class="form-group row">
-            <label class="col-md-3 col-form-label text-md-right"
-              >password</label
-            >
+            <label class="col-md-3 col-form-label text-md-right">password</label>
             <div class="col-md-7">
               <input
                 v-model="form.password"
@@ -39,9 +37,7 @@
           <div class="form-group row">
             <div class="col-md-3" />
             <div class="col-md-7 d-flex">
-              <checkbox v-model="remember" name="remember">
-                remember_me
-              </checkbox>
+              <checkbox v-model="remember" name="remember"> remember_me </checkbox>
             </div>
           </div>
 
@@ -58,20 +54,20 @@
 </template>
 
 <script>
-import Form from "vform";
-import Cookies from "js-cookie";
+import Form from 'vform';
+import Cookies from 'js-cookie';
 
 export default {
-  middleware: "guest",
+  middleware: 'guest',
 
   metaInfo() {
-    return { title: "login" };
+    return { title: 'login' };
   },
 
   data: () => ({
     form: new Form({
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     }),
     remember: false,
   }),
@@ -79,29 +75,29 @@ export default {
   methods: {
     async login() {
       // Submit the form.
-      const { data } = await this.form.post("/api/login");
+      const { data } = await this.form.post('/api/login');
 
       // Save the token.
-      this.$store.dispatch("auth/saveToken", {
+      this.$store.dispatch('auth/saveToken', {
         token: data.token,
         remember: this.remember,
       });
 
       // Fetch the user.
-      await this.$store.dispatch("auth/fetchUser");
+      await this.$store.dispatch('auth/fetchUser');
 
       // Redirect home.
       this.redirect();
     },
 
     redirect() {
-      const intendedUrl = Cookies.get("intended_url");
+      const intendedUrl = Cookies.get('intended_url');
 
       if (intendedUrl) {
-        Cookies.remove("intended_url");
+        Cookies.remove('intended_url');
         this.$router.push({ path: intendedUrl });
       } else {
-        this.$router.push({ name: "home" });
+        this.$router.push({ name: 'home' });
       }
     },
   },

@@ -13,13 +13,13 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex';
 
 export default {
-  layout: "basic",
+  layout: 'basic',
 
   metaInfo() {
-    return { title: "home" };
+    return { title: 'home' };
   },
 
   data: () => ({
@@ -27,7 +27,7 @@ export default {
   }),
 
   computed: mapGetters({
-    authenticated: "auth/check",
+    authenticated: 'auth/check',
   }),
 };
 </script>

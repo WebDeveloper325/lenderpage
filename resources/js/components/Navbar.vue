@@ -13,10 +13,7 @@
               aria-haspopup="true"
               aria-expanded="false"
             >
-              <img
-                :src="user.photo_url"
-                class="rounded-circle profile-photo mr-1"
-              />
+              <img :src="user.photo_url" class="rounded-circle profile-photo mr-1" />
               {{ user.name }}
             </a>
             <div class="dropdown-menu">
@@ -29,20 +26,12 @@
           <!-- Guest -->
           <template v-else>
             <li class="nav-item">
-              <router-link
-                :to="{ name: 'login' }"
-                class="nav-link"
-                active-class="active"
-              >
+              <router-link :to="{ name: 'login' }" class="nav-link" active-class="active">
                 LogIn
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link
-                :to="{ name: 'register' }"
-                class="nav-link"
-                active-class="active"
-              >
+              <router-link :to="{ name: 'register' }" class="nav-link" active-class="active">
                 Register
               </router-link>
             </li>
@@ -54,20 +43,20 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex';
 
 export default {
   computed: mapGetters({
-    user: "auth/user",
+    user: 'auth/user',
   }),
 
   methods: {
     async logout() {
       // Log out the user.
-      await this.$store.dispatch("auth/logout");
+      await this.$store.dispatch('auth/logout');
 
       // Redirect to login.
-      this.$router.push({ name: "login" });
+      this.$router.push({ name: 'login' });
     },
   },
 };

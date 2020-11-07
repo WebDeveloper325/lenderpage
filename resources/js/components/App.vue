@@ -9,21 +9,21 @@
 </template>
 
 <script>
-import Loading from "./Loading";
+import Loading from './Loading';
 
 // Load layout components dynamically.
-const requireContext = require.context("~/layouts", false, /.*\.vue$/);
+const requireContext = require.context('~/layouts', false, /.*\.vue$/);
 
 const layouts = requireContext
   .keys()
-  .map((file) => [file.replace(/(^.\/)|(\.vue$)/g, ""), requireContext(file)])
+  .map((file) => [file.replace(/(^.\/)|(\.vue$)/g, ''), requireContext(file)])
   .reduce((components, [name, component]) => {
     components[name] = component.default || component;
     return components;
   }, {});
 
 export default {
-  el: "#app",
+  el: '#app',
 
   components: {
     Loading,
@@ -31,7 +31,7 @@ export default {
 
   data: () => ({
     layout: null,
-    defaultLayout: "default",
+    defaultLayout: 'default',
   }),
 
   metaInfo() {
