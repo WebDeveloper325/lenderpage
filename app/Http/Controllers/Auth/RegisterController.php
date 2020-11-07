@@ -26,9 +26,9 @@ class RegisterController extends Controller
     /**
      * The user has been registered.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\JsonResponse
+     * @param  Request  $request
+     * @param  User  $user
+     * @return JsonResponse
      */
     protected function registered(Request $request, User $user)
     {

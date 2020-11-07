@@ -33,12 +33,12 @@ class LoginController extends Controller
     {
         $token = $this->guard()->attempt($this->credentials($request));
 
-        if (! $token) {
+        if (!$token) {
             return false;
         }
 
         $user = $this->guard()->user();
-        if ($user instanceof MustVerifyEmail && ! $user->hasVerifiedEmail()) {
+        if ($user instanceof MustVerifyEmail && !$user->hasVerifiedEmail()) {
             return false;
         }
 
@@ -51,7 +51,7 @@ class LoginController extends Controller
      * Send the response after the user was authenticated.
      *
      * @param  Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     protected function sendLoginResponse(Request $request)
     {
@@ -71,14 +71,14 @@ class LoginController extends Controller
      * Get the failed login response instance.
      *
      * @param  Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      *
      * @throws \Illuminate\Validation\ValidationException
      */
     protected function sendFailedLoginResponse(Request $request)
     {
         $user = $this->guard()->user();
-        if ($user instanceof MustVerifyEmail && ! $user->hasVerifiedEmail()) {
+        if ($user instanceof MustVerifyEmail && !$user->hasVerifiedEmail()) {
             throw VerifyEmailException::forUser($user);
         }
 
@@ -91,7 +91,7 @@ class LoginController extends Controller
      * Log the user out of the application.
      *
      * @param  Request  $request
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function logout(Request $request)
     {
