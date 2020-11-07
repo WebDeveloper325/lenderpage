@@ -1,22 +1,36 @@
 <template>
   <div class="row">
     <div class="col-lg-8 m-auto">
-      <card :title="$t('login')">
+      <card title="login">
         <form @submit.prevent="login" @keydown="form.onKeydown($event)">
           <!-- Email -->
           <div class="form-group row">
-            <label class="col-md-3 col-form-label text-md-right">{{ $t('email') }}</label>
+            <label class="col-md-3 col-form-label text-md-right"> email</label>
             <div class="col-md-7">
-              <input v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" class="form-control" type="email" name="email">
+              <input
+                v-model="form.email"
+                :class="{ 'is-invalid': form.errors.has('email') }"
+                class="form-control"
+                type="email"
+                name="email"
+              />
               <has-error :form="form" field="email" />
             </div>
           </div>
 
           <!-- Password -->
           <div class="form-group row">
-            <label class="col-md-3 col-form-label text-md-right">{{ $t('password') }}</label>
+            <label class="col-md-3 col-form-label text-md-right"
+              >password</label
+            >
             <div class="col-md-7">
-              <input v-model="form.password" :class="{ 'is-invalid': form.errors.has('password') }" class="form-control" type="password" name="password">
+              <input
+                v-model="form.password"
+                :class="{ 'is-invalid': form.errors.has('password') }"
+                class="form-control"
+                type="password"
+                name="password"
+              />
               <has-error :form="form" field="password" />
             </div>
           </div>
@@ -26,7 +40,7 @@
             <div class="col-md-3" />
             <div class="col-md-7 d-flex">
               <checkbox v-model="remember" name="remember">
-                {{ $t('remember_me') }}
+                remember_me
               </checkbox>
             </div>
           </div>
@@ -34,9 +48,7 @@
           <div class="form-group row">
             <div class="col-md-7 offset-md-3 d-flex">
               <!-- Submit Button -->
-              <v-button :loading="form.busy">
-                {{ $t('login') }}
-              </v-button>
+              <v-button :loading="form.busy"> login </v-button>
             </div>
           </div>
         </form>
@@ -46,52 +58,52 @@
 </template>
 
 <script>
-import Form from 'vform'
-import Cookies from 'js-cookie'
+import Form from "vform";
+import Cookies from "js-cookie";
 
 export default {
-  middleware: 'guest',
+  middleware: "guest",
 
-  metaInfo () {
-    return { title: this.$t('login') }
+  metaInfo() {
+    return { title: "login" };
   },
 
   data: () => ({
     form: new Form({
-      email: '',
-      password: ''
+      email: "",
+      password: "",
     }),
-    remember: false
+    remember: false,
   }),
 
   methods: {
-    async login () {
+    async login() {
       // Submit the form.
-      const { data } = await this.form.post('/api/login')
+      const { data } = await this.form.post("/api/login");
 
       // Save the token.
-      this.$store.dispatch('auth/saveToken', {
+      this.$store.dispatch("auth/saveToken", {
         token: data.token,
-        remember: this.remember
-      })
+        remember: this.remember,
+      });
 
       // Fetch the user.
-      await this.$store.dispatch('auth/fetchUser')
+      await this.$store.dispatch("auth/fetchUser");
 
       // Redirect home.
-      this.redirect()
+      this.redirect();
     },
 
-    redirect () {
-      const intendedUrl = Cookies.get('intended_url')
+    redirect() {
+      const intendedUrl = Cookies.get("intended_url");
 
       if (intendedUrl) {
-        Cookies.remove('intended_url')
-        this.$router.push({ path: intendedUrl })
+        Cookies.remove("intended_url");
+        this.$router.push({ path: intendedUrl });
       } else {
-        this.$router.push({ name: 'home' })
+        this.$router.push({ name: "home" });
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>

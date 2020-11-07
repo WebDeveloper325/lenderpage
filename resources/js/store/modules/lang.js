@@ -1,49 +1,49 @@
-import Cookies from 'js-cookie'
-import * as types from '../mutation-types'
+import Cookies from 'js-cookie';
+import * as types from '../mutation-types';
 
-const { locale, locales } = window.config
+const { locale, locales } = window.config;
 
 // state
 export const state = {
   locale: getLocale(locales, locale),
-  locales: locales
-}
+  locales: locales,
+};
 
 // getters
 export const getters = {
-  locale: state => state.locale,
-  locales: state => state.locales
-}
+  locale: (state) => state.locale,
+  locales: (state) => state.locales,
+};
 
 // mutations
 export const mutations = {
-  [types.SET_LOCALE] (state, { locale }) {
-    state.locale = locale
-  }
-}
+  [types.SET_LOCALE](state, { locale }) {
+    state.locale = locale;
+  },
+};
 
 // actions
 export const actions = {
-  setLocale ({ commit }, { locale }) {
-    commit(types.SET_LOCALE, { locale })
+  setLocale({ commit }, { locale }) {
+    commit(types.SET_LOCALE, { locale });
 
-    Cookies.set('locale', locale, { expires: 365 })
-  }
-}
+    Cookies.set('locale', locale, { expires: 365 });
+  },
+};
 
 /**
  * @param  {String[]} locales
  * @param  {String} fallback
  * @return {String}
  */
-function getLocale (locales, fallback) {
-  const locale = Cookies.get('locale')
+function getLocale(locales, fallback) {
+  const locale = Cookies.get('locale');
 
   if (Object.prototype.hasOwnProperty.call(locales, locale)) {
-    return locale
+    return locale;
   } else if (locale) {
-    Cookies.remove('locale')
+    Cookies.remove('locale');
   }
 
-  return fallback
+  return fallback;
 }
