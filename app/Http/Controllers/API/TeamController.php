@@ -21,7 +21,8 @@ class TeamController extends Controller
      *
      * @param TeamRepositoryInterface $teamRepository
      * */
-    public function __construct(TeamRepositoryInterface $teamRepository) {
+    public function __construct(TeamRepositoryInterface $teamRepository)
+    {
         $this->teamRepository = $teamRepository;
     }
 
@@ -32,7 +33,7 @@ class TeamController extends Controller
      */
     public function index()
     {
-        return $this->teamRepository->with('teams')->all();
+        return $this->teamRepository->with('players')->get();
     }
 
     /**

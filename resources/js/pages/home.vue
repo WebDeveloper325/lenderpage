@@ -1,5 +1,7 @@
 <template>
-  <card title="Home"> You are logged in </card>
+  <card title="Home">
+    
+  </card>
 </template>
 
 <script>

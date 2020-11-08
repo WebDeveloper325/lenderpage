@@ -14,6 +14,8 @@ export default [
     component: page('auth/password/reset.vue'),
   },
 
+  { path: '/teams', name: 'Teams', component: page('team/Teams.vue') },
+
   { path: '/home', name: 'home', component: page('home.vue') },
 
   { path: '*', component: page('errors/404.vue') },

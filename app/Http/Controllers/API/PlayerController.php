@@ -20,7 +20,8 @@ class PlayerController extends Controller
      *
      * @param PlayerRepositoryInterface $playerRepository
      * */
-    public function __construct(PlayerRepositoryInterface $playerRepository) {
+    public function __construct(PlayerRepositoryInterface $playerRepository)
+    {
         $this->playerRepository = $playerRepository;
     }
     /**
@@ -30,7 +31,7 @@ class PlayerController extends Controller
      */
     public function index()
     {
-        return $this->playerRepository->with('team')->all();
+        return $this->playerRepository->with('team')->get();
     }
 
     /**

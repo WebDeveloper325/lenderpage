@@ -5,8 +5,8 @@
     </b-card-title>
 
     <b-alert v-if="error" show variant="danger" dismissible>
-        {{ error }}
-      </b-alert>
+      {{ error }}
+    </b-alert>
 
     <slot />
   </b-card>
