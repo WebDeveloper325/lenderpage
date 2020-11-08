@@ -16,6 +16,8 @@ export default [
 
   { path: '/teams', name: 'Teams', component: page('team/Teams.vue') },
 
+  { path: '/players', name: 'Players', component: page('player/Players.vue') },
+
   { path: '/home', name: 'home', component: page('home.vue') },
 
   { path: '*', component: page('errors/404.vue') },

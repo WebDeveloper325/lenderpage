@@ -22,7 +22,7 @@ class TeamRepository extends AbstractRepository implements TeamRepositoryInterfa
     }
 
     /**
-     * Team Model Creat and Update Rules
+     * Team Model Create and Update Rules
      *
      * @param int $id
      * @return array

@@ -3,30 +3,30 @@ import * as types from '../mutation-types';
 
 // state
 export const state = {
-  teams: [],
+  players: [],
   loading: false,
   error: null,
 };
 
 // getters
 export const getters = {
-  teams: (state) => state.teams,
+  players: (state) => state.players,
   loading: (state) => state.loading,
 };
 
 // mutations
 export const mutations = {
-  [types.FETCH_TEAMS](state) {
+  [types.FETCH_PLAYERS](state) {
     state.loading = true;
     state.error = null;
   },
 
-  [types.FETCH_TEAMS_SUCCESS](state, { teams }) {
-    state.teams = teams;
+  [types.FETCH_PLAYERS_SUCCESS](state, { players }) {
+    state.players = players;
     state.loading = false;
   },
 
-  [types.FETCH_TEAMS_FAILURE](state, { error }) {
+  [types.FETCH_PLAYERS_FAILURE](state, { error }) {
     state.loading = false;
     state.error = false;
   },
@@ -34,13 +34,13 @@ export const mutations = {
 
 // actions
 export const actions = {
-  async fetchTeams({ commit }) {
+  async fetchPlayers({ commit }) {
     try {
-      const { data } = await axios.get('/api/teams');
+      const { data } = await axios.get('/api/players');
 
-      commit(types.FETCH_TEAMS_SUCCESS, { teams: data });
+      commit(types.FETCH_PLAYERS_SUCCESS, { players: data });
     } catch (e) {
-      commit(types.FETCH_TEAMS_FAILURE);
+      commit(types.FETCH_PLAYERS_FAILURE);
     }
   },
 };

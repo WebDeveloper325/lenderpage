@@ -18,7 +18,7 @@ export default {
 		},
 
 		addLink: {
-  			type: String,
+			type: String,
 		},
 	},
 }

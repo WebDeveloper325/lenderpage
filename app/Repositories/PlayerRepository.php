@@ -8,8 +8,6 @@ use App\Repositories\AbstractRepository;
 use App\Interfaces\Repositories\PlayerRepositoryInterface;
 use App\Models\Player;
 
-use Illuminate\Validation\Rule;
-
 class PlayerRepository extends AbstractRepository implements PlayerRepositoryInterface
 {
     /**
@@ -22,7 +20,7 @@ class PlayerRepository extends AbstractRepository implements PlayerRepositoryInt
     }
 
     /**
-     * Team Model Creat and Update Rules
+     * Player Model Create and Update Rules
      *
      * @param int $id
      * @return array
@@ -31,7 +29,7 @@ class PlayerRepository extends AbstractRepository implements PlayerRepositoryInt
     {
         return [
             'first_name' => 'required|string|max:100',
-            'max_name' => 'required|string|max:100',
+            'last_name' => 'required|string|max:100',
             'team_id' => 'exists:teams,id',
         ];
     }

@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use App\Interfaces\Repositories\TeamRepositoryInterface;
-use App\Interfaces\Repositories\PlayerRepositoryinterface;
+use App\Interfaces\Repositories\PlayerRepositoryInterface;
 use App\Repositories\TeamRepository;
 use App\Repositories\PlayerRepository;
 use Illuminate\Contracts\Support\DeferrableProvider;
@@ -24,7 +24,7 @@ class RepositoryProvider extends ServiceProvider implements DeferrableProvider
     {
         return [
             TeamRepositoryInterface::class,
-            PlayerRepositoryinterface::class,
+            PlayerRepositoryInterface::class,
         ];
     }
 
@@ -40,7 +40,7 @@ class RepositoryProvider extends ServiceProvider implements DeferrableProvider
             TeamRepository::class
         );
         $this->app->bind(
-            PlayerRepositoryinterface::class,
+            PlayerRepositoryInterface::class,
             PlayerRepository::class
         );
     }

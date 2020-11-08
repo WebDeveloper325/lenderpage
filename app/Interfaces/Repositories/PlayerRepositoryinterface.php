@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Interfaces\Repositories;
 
 /**
- * Interface PlayerRepositoryinterface
+ * Interface PlayerRepositoryInterface
  *
  * @package App\Interfaces\Repositores
  */
-interface PlayerRepositoryinterface
+interface PlayerRepositoryInterface
 {
     /**
      * @param int $id
