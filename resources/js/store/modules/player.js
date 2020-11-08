@@ -30,6 +30,14 @@ export const mutations = {
     state.loading = false;
     state.error = false;
   },
+
+  [types.DELETE_PLAYER_SUCCESS](state, { playerId }) {
+    state.players = [...state.players.filter((team) => team.id !== playerId)];
+  },
+
+  [types.DELETE_PLAYER_FAILURE](state, { error }) {
+    state.error = error;
+  },
 };
 
 // actions
@@ -41,6 +49,15 @@ export const actions = {
       commit(types.FETCH_PLAYERS_SUCCESS, { players: data });
     } catch (e) {
       commit(types.FETCH_PLAYERS_FAILURE);
+    }
+  },
+
+  async deletePlayer({ commit }, playerId) {
+    try {
+      await axios.delete(`/api/players/${playerId}`);
+      commit(types.DELETE_PLAYER_SUCCESS, { playerId });
+    } catch (error) {
+      commit(types.DELETE_PLAYER_FAILURE, { error });
     }
   },
 };

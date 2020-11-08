@@ -6,6 +6,7 @@
     pageEdit="PlayerEdit"
     name="Players"
     pageAdd="PlayerAdd"
+    @delete-item="onDeletePlayer"
   />
 </template>
 
@@ -51,7 +52,11 @@ export default {
   },
 
   methods: {
-    ...mapActions('player', ['fetchPlayers']),
+    ...mapActions('player', ['fetchPlayers', 'deletePlayer']),
+
+    onDeletePlayer(id) {
+      this.deletePlayer(id);
+    }
   },
 }
 </script>

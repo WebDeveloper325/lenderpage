@@ -53,7 +53,7 @@ export const actions = {
 
   async deleteTeam({ commit }, teamId) {
     try {
-      const { data } = await axios.delete(`/api/teams/${teamId}`);
+      await axios.delete(`/api/teams/${teamId}`);
       commit(types.DELETE_TEAM_SUCCESS, { teamId });
     } catch (error) {
       commit(types.DELETE_TEAM_FAILURE, { error });
