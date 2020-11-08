@@ -1,62 +1,47 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-white">
-    <div class="container">
-      <div id="navbarToggler" class="collapse navbar-collapse">
-        <ul class="navbar-nav ml-auto">
-          <!-- Authenticated -->
-          <li v-if="user" class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle text-dark"
-              href="#"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              <img :src="user.photo_url" class="rounded-circle profile-photo mr-1" />
-              {{ user.name }}
-            </a>
-            <div class="dropdown-menu">
-              <a href="#" class="dropdown-item pl-3" @click.prevent="logout">
-                <fa icon="sign-out-alt" fixed-width />
-                Log Out
-              </a>
-            </div>
-          </li>
-          <!-- Guest -->
-          <template v-else>
-            <li class="nav-item">
-              <router-link :to="{ name: 'login' }" class="nav-link" active-class="active">
-                LogIn
-              </router-link>
-            </li>
-            <li class="nav-item">
-              <router-link :to="{ name: 'register' }" class="nav-link" active-class="active">
-                Register
-                
-              </router-link>
-            </li>
+  <b-navbar toggleable="lg" type="dark" variant="info">
+    <b-navbar-brand href="#">
+      {{ title }}
+    </b-navbar-brand>
+
+    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+    <b-collapse id="nav-collapse" is-nav>
+      <b-navbar-nav v-if="user" class="ml-auto">
+        <b-nav-item-dropdown right>
+          <!-- Using 'button-content' slot -->
+          <template #button-content>
+            <img :src="user.photo_url" class="rounded-circle profile-photo mr-1" />
+            <em>{{ user.name }}</em>
           </template>
-        </ul>
-      </div>
-    </div>
-  </nav>
+
+          <b-dropdown-item href="#" @click.prevent="onLogOut">Sign Out</b-dropdown-item>
+        </b-nav-item-dropdown>
+      </b-navbar-nav>
+
+      <b-navbar-nav v-else class="ml-auto">
+        <b-nav-item :to="{ name: 'login' }" right>LogIn</b-nav-item>
+        <b-nav-item :to="{ name: 'register' }" right>Register</b-nav-item>
+      </b-navbar-nav>
+    </b-collapse>
+  </b-navbar>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
-  computed: mapGetters({
-    user: 'auth/user',
+  computed: mapGetters('auth', ['user']),
+
+  data: () => ({
+    title: window.config.appName,
   }),
 
   methods: {
-    async logout() {
-      // Log out the user.
-      await this.$store.dispatch('auth/logout');
+    ...mapActions('auth', ['logout']),
 
-      // Redirect to login.
+    async onLogOut() {
+      this.logout();
       this.$router.push({ name: 'login' });
     },
   },
