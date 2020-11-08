@@ -1,6 +1,7 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import * as types from '../mutation-types';
+import { SUCCESS, FAILURE } from '../action-util';
 
 // state
 export const state = {
@@ -22,11 +23,11 @@ export const mutations = {
     Cookies.set('token', token, { expires: remember ? 365 : null });
   },
 
-  [types.FETCH_USER_SUCCESS](state, { user }) {
+  [SUCCESS(types.FETCH_USER)](state, { user }) {
     state.user = user;
   },
 
-  [types.FETCH_USER_FAILURE](state) {
+  [FAILURE(types.FETCH_USER)](state) {
     state.token = null;
     Cookies.remove('token');
   },
@@ -53,9 +54,9 @@ export const actions = {
     try {
       const { data } = await axios.get('/api/user');
 
-      commit(types.FETCH_USER_SUCCESS, { user: data });
+      commit(SUCCESS(types.FETCH_USER), { user: data });
     } catch (e) {
-      commit(types.FETCH_USER_FAILURE);
+      commit(FAILURE(types.FETCH_USER));
     }
   },
 

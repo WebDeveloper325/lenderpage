@@ -1,6 +1,4 @@
-import { page } from './util';
-
-export default [
+export default (page) => [
   {
     path: '/teams',
     name: 'Teams',

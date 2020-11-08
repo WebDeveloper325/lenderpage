@@ -1,5 +1,6 @@
 import axios from 'axios';
 import * as types from '../mutation-types';
+import { SUCCESS, FAILURE } from '../action-util';
 
 // state
 export const state = {
@@ -24,21 +25,21 @@ export const mutations = {
     state.error = null;
   },
 
-  [types.FETCH_TEAMS_SUCCESS](state, teams) {
+  [SUCCESS(types.FETCH_TEAMS)](state, teams) {
     state.teams = teams;
     state.loading = false;
   },
 
-  [types.FETCH_TEAMS_FAILURE](state, error) {
+  [FAILURE(types.FETCH_TEAMS)](state, error) {
     state.loading = false;
     state.error = error.response.data.message || error.message;
   },
 
-  [types.DELETE_TEAM_SUCCESS](state, teamId) {
+  [SUCCESS(types.DELETE_TEAM)](state, teamId) {
     state.teams = [...state.teams.filter((team) => team.id !== teamId)];
   },
 
-  [types.DELETE_TEAM_FAILURE](state, error) {
+  [FAILURE(types.DELETE_TEAM)](state, error) {
     state.error = error.response.data.message || error.message;
   },
 
@@ -48,12 +49,12 @@ export const mutations = {
     state.error = null;
   },
 
-  [types.FETCH_TEAM_SUCCESS](state, team) {
+  [SUCCESS(types.FETCH_TEAM)](state, team) {
     state.currentTeam = team;
     state.loading = false;
   },
 
-  [types.FETCH_TEAM_FAILURE](state, error) {
+  [FAILURE(types.FETCH_TEAM)](state, error) {
     state.loading = false;
     state.error = error.response.data.message || error.message;
   },
@@ -64,27 +65,27 @@ export const actions = {
   async fetchTeams({ commit }) {
     try {
       const { data } = await axios.get('/api/teams');
-      commit(types.FETCH_TEAMS_SUCCESS, data);
+      commit(SUCCESS(types.FETCH_TEAMS), data);
     } catch (error) {
-      commit(types.FETCH_TEAMS_FAILURE, error);
+      commit(FAILURE(types.FETCH_TEAMS), error);
     }
   },
 
   async deleteTeam({ commit }, teamId) {
     try {
       await axios.delete(`/api/teams/${teamId}`);
-      commit(types.DELETE_TEAM_SUCCESS, teamId);
+      commit(SUCCESS(types.DELETE_TEAM), teamId);
     } catch (error) {
-      commit(types.DELETE_TEAM_FAILURE, error);
+      commit(FAILURE(types.DELETE_TEAM), error);
     }
   },
 
   async fetchTeam({ commit }, teamId) {
     try {
       const { data } = await axios.get(`/api/teams/${teamId}`);
-      commit(types.FETCH_TEAM_SUCCESS, data);
+      commit(SUCCESS(types.FETCH_TEAM), data);
     } catch (error) {
-      commit(types.FETCH_TEAM_FAILURE, error);
+      commit(FAILURE(types.FETCH_TEAM), error);
     }
   },
 };

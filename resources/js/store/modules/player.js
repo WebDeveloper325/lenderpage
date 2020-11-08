@@ -1,5 +1,6 @@
 import axios from 'axios';
 import * as types from '../mutation-types';
+import { SUCCESS, FAILURE } from '../action-util';
 
 // state
 export const state = {
@@ -24,21 +25,21 @@ export const mutations = {
     state.error = null;
   },
 
-  [types.FETCH_PLAYERS_SUCCESS](state, players) {
+  [SUCCESS(types.FETCH_PLAYERS)](state, players) {
     state.players = players;
     state.loading = false;
   },
 
-  [types.FETCH_PLAYERS_FAILURE](state, error) {
+  [FAILURE(types.FETCH_PLAYERS)](state, error) {
     state.loading = false;
     state.error = error.response.data.message || error.message;
   },
 
-  [types.DELETE_PLAYER_SUCCESS](state, playerId) {
+  [SUCCESS(types.DELETE_PLAYER)](state, playerId) {
     state.players = [...state.players.filter((team) => team.id !== playerId)];
   },
 
-  [types.DELETE_PLAYER_FAILURE](state, error) {
+  [FAILURE(types.DELETE_PLAYER)](state, error) {
     state.error = error.response.data.message || error.message;
   },
 
@@ -48,12 +49,12 @@ export const mutations = {
     state.error = null;
   },
 
-  [types.FETCH_PLAYER_SUCCESS](state, player) {
+  [SUCCESS(types.FETCH_PLAYER)](state, player) {
     state.currentPlayer = player;
     state.loading = false;
   },
 
-  [types.FETCH_PLAYER_FAILURE](state, error) {
+  [FAILURE(types.FETCH_PLAYER)](state, error) {
     state.error = error.response.data.message || error.message;
     state.loading = false;
   },
@@ -64,27 +65,27 @@ export const actions = {
   async fetchPlayers({ commit }) {
     try {
       const { data } = await axios.get('/api/players');
-      commit(types.FETCH_PLAYERS_SUCCESS, data);
+      commit(SUCCESS(types.FETCH_PLAYERS), data);
     } catch (error) {
-      commit(types.FETCH_PLAYERS_FAILURE, error);
+      commit(FAILURE(types.FETCH_PLAYERS), error);
     }
   },
 
   async deletePlayer({ commit }, playerId) {
     try {
       await axios.delete(`/api/players/${playerId}`);
-      commit(types.DELETE_PLAYER_SUCCESS, playerId);
+      commit(SUCCESS(types.DELETE_PLAYER), playerId);
     } catch (error) {
-      commit(types.DELETE_PLAYER_FAILURE, error);
+      commit(FAILURE(types.DELETE_PLAYER), error);
     }
   },
 
   async fetchPlayer({ commit }, playerId) {
     try {
       const { data } = await axios.get(`/api/players/${playerId}`);
-      commit(types.FETCH_PLAYER_SUCCESS, data);
+      commit(SUCCESS(types.FETCH_PLAYER), data);
     } catch (error) {
-      commit(types.FETCH_PLAYER_FAILURE, error);
+      commit(FAILURE(types.FETCH_PLAYER), error);
     }
   },
 };
