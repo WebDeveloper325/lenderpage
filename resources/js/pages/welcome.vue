@@ -1,25 +1,15 @@
 <template>
-  <div>
-    <div class="top-right links">
-      <template v-if="authenticated">
-        <router-link :to="{ name: 'teams' }">Teams</router-link>
-      </template>
-      <template v-else>
-        <router-link :to="{ name: 'login' }">Login</router-link>
-        <router-link :to="{ name: 'register' }">Register</router-link>
-      </template>
-    </div>
-  </div>
+  <router-view />
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
 
 export default {
-  layout: 'basic',
+  layout: 'default',
 
   metaInfo() {
-    return { title: 'teams' };
+    return { title: 'welcome' };
   },
 
   data: () => ({

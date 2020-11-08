@@ -1,10 +1,10 @@
 <template>
   <crud-table
+    name="Players"
     :items="players"
     :fields="fields"
     pageView="PlayerView"
     pageEdit="PlayerEdit"
-    name="Players"
     pageAdd="PlayerAdd"
     @delete-item="onDeletePlayer"
   />
