@@ -2,7 +2,7 @@
   <div>
     <div class="top-right links">
       <template v-if="authenticated">
-        <router-link :to="{ name: 'home' }">Home</router-link>
+        <router-link :to="{ name: 'teams' }">Teams</router-link>
       </template>
       <template v-else>
         <router-link :to="{ name: 'login' }">Login</router-link>
@@ -19,7 +19,7 @@ export default {
   layout: 'basic',
 
   metaInfo() {
-    return { title: 'home' };
+    return { title: 'teams' };
   },
 
   data: () => ({

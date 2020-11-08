@@ -28,7 +28,7 @@
 
 				<b-button
 					variant="danger"
-					@click="$emit(item.id)"
+					@click="$emit('delete-item', item.id)"
 				>
 					Delete
 				</b-button>

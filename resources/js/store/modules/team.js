@@ -28,7 +28,15 @@ export const mutations = {
 
   [types.FETCH_TEAMS_FAILURE](state, { error }) {
     state.loading = false;
-    state.error = false;
+    state.error = error;
+  },
+
+  [types.DELETE_TEAM_SUCCESS](state, { teamId }) {
+    state.teams = [...state.teams.filter((team) => team.id !== teamId)];
+  },
+
+  [types.DELETE_TEAM_FAILURE](state, { error }) {
+    state.error = error;
   },
 };
 
@@ -37,10 +45,18 @@ export const actions = {
   async fetchTeams({ commit }) {
     try {
       const { data } = await axios.get('/api/teams');
-
       commit(types.FETCH_TEAMS_SUCCESS, { teams: data });
-    } catch (e) {
-      commit(types.FETCH_TEAMS_FAILURE);
+    } catch (error) {
+      commit(types.FETCH_TEAMS_FAILURE, { error });
+    }
+  },
+
+  async deleteTeam({ commit }, teamId) {
+    try {
+      const { data } = await axios.delete(`/api/teams/${teamId}`);
+      commit(types.DELETE_TEAM_SUCCESS, { teamId });
+    } catch (error) {
+      commit(types.DELETE_TEAM_FAILURE, { error });
     }
   },
 };

@@ -18,8 +18,12 @@ class CreatePlayersTable extends Migration
             $table->id();
             $table->string('first_name', 100);
             $table->string('last_name', 100);
-            $table->foreignId('team_id')->nullable()->constrained();
             $table->timestamps();
+
+            $table->foreignId('team_id')
+                ->references('id')
+                ->on('teams')
+                ->onDelete('cascade');
         });
     }
 

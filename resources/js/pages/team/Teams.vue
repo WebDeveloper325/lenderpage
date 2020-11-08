@@ -6,6 +6,7 @@
     pageView="PlayerView"
     pageEdit="PlayerEdit"
     pageAdd="PlayerAdd"
+    @delete-item="onDeleteTeam"
   />
 </template>
 
@@ -15,6 +16,8 @@ import { formatDate } from '~/plugins/date';
 
 export default {
   name: 'Teams',
+
+  middleware: 'auth',
 
   data() {
     return {
@@ -45,7 +48,11 @@ export default {
   },
 
   methods: {
-    ...mapActions('team', ['fetchTeams']),
+    ...mapActions('team', ['fetchTeams', 'deleteTeam']),
+
+    onDeleteTeam(id) {
+      this.deleteTeam(id);
+    }
   },
 }
 </script>
