@@ -1,13 +1,17 @@
 <template>
-  <crud-table
-    name="Players"
-    :items="players"
-    :fields="fields"
-    pageView="PlayerView"
-    pageEdit="PlayerEdit"
-    pageAdd="PlayerAdd"
-    @delete-item="onDeletePlayer"
-  />
+  <div class="py-3">
+    <alert :error="error" />
+
+    <crud-table
+      name="Players"
+      :items="players"
+      :fields="fields"
+      pageView="PlayerView"
+      pageEdit="PlayerEdit"
+      pageAdd="PlayerAdd"
+      @delete-item="onDeletePlayer"
+    />
+  </div>
 </template>
 
 <script>
@@ -54,7 +58,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters('player', ['players']),
+    ...mapGetters('player', ['players', 'error']),
   },
 
   methods: {

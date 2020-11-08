@@ -1,13 +1,6 @@
 <template>
   <div class="py-3">
-    <b-alert
-      v-if="error"
-      show
-      variant="danger"
-      dismissible
-    >
-      {{ error }}
-    </b-alert>
+    <alert :error="error" />
 
     <div v-if="currentTeam">
       <div class="d-flex justify-content-between align-items-center">

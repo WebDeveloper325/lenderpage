@@ -31,7 +31,7 @@ export const mutations = {
 
   [types.FETCH_PLAYERS_FAILURE](state, error) {
     state.loading = false;
-    state.error = error;
+    state.error = error.response.data.message || error.message;
   },
 
   [types.DELETE_PLAYER_SUCCESS](state, playerId) {
@@ -39,11 +39,13 @@ export const mutations = {
   },
 
   [types.DELETE_PLAYER_FAILURE](state, error) {
-    state.error = error;
+    state.error = error.response.data.message || error.message;
   },
 
   [types.FETCH_PLAYER](state) {
+    state.currentPlayer = {};
     state.loading = true;
+    state.error = null;
   },
 
   [types.FETCH_PLAYER_SUCCESS](state, player) {
@@ -52,7 +54,7 @@ export const mutations = {
   },
 
   [types.FETCH_PLAYER_FAILURE](state, error) {
-    state.error = error;
+    state.error = error.response.data.message || error.message;
     state.loading = false;
   },
 };
@@ -62,7 +64,6 @@ export const actions = {
   async fetchPlayers({ commit }) {
     try {
       const { data } = await axios.get('/api/players');
-
       commit(types.FETCH_PLAYERS_SUCCESS, data);
     } catch (error) {
       commit(types.FETCH_PLAYERS_FAILURE, error);

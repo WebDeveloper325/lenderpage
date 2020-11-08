@@ -1,13 +1,6 @@
 <template>
   <b-col lg="8" class="m-auto py-4">
-    <b-alert
-      v-if="error"
-      show
-      variant="danger"
-      dismissible
-    >
-      {{ error }}
-    </b-alert>
+    <alert :error="error" />
 
     <card v-if="currentPlayer">
       <div class="d-flex justify-content-between align-items-center">

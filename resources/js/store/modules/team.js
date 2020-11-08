@@ -29,22 +29,23 @@ export const mutations = {
     state.loading = false;
   },
 
-  [types.FETCH_TEAMS_FAILURE](state, { error }) {
+  [types.FETCH_TEAMS_FAILURE](state, error) {
     state.loading = false;
-    state.error = error;
+    state.error = error.response.data.message || error.message;
   },
 
   [types.DELETE_TEAM_SUCCESS](state, teamId) {
     state.teams = [...state.teams.filter((team) => team.id !== teamId)];
   },
 
-  [types.DELETE_TEAM_FAILURE](state, { error }) {
-    state.error = error;
+  [types.DELETE_TEAM_FAILURE](state, error) {
+    state.error = error.response.data.message || error.message;
   },
 
   [types.FETCH_TEAM](state) {
     state.currentTeam = {};
     state.loading = false;
+    state.error = null;
   },
 
   [types.FETCH_TEAM_SUCCESS](state, team) {
@@ -52,9 +53,9 @@ export const mutations = {
     state.loading = false;
   },
 
-  [types.FETCH_TEAM_FAILURE](state, { error }) {
+  [types.FETCH_TEAM_FAILURE](state, error) {
     state.loading = false;
-    state.error = error;
+    state.error = error.response.data.message || error.message;
   },
 };
 
