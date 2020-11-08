@@ -1,12 +1,12 @@
 <template>
-  <validation-observer ref="observer" v-slot="{ invalid, handleSubmit }">
+  <validation-observer v-slot="{ invalid, handleSubmit }">
     <b-form @submit.prevent="handleSubmit(onSubmit)">
       <vee-text-input
         rules="required"
         label="Name:"
         name="Name"
         v-model="value.name"
-        placeholder="Enter name"
+        placeholder="Enter name, please"
       />
 
       <div class="d-flex justify-content-between align-items-center">
@@ -31,17 +31,12 @@
 
 <script>
 import _ from 'lodash';
-import VeeTextInput from '../VeeTextInput';
 
 export default {
   name: 'TeamForm',
 
-  components: {
-    VeeTextInput,
-  },
-
   props: {
-    defaultValue: {
+    default: {
       type: Object,
     },
   },
@@ -51,26 +46,24 @@ export default {
   }),
 
   created() {
-    this.updateValue()
+    this.updateValue();
   },
 
   watch: {
-    defaultValue() {
-      this.updateValue()
-    },
+    default: this.updateValue,
   },
 
   methods: {
     updateValue() {
-      this.value = _.pick(this.defaultValue, ['id', 'name'])
+      this.value = _.pick(this.default, ['id', 'name']);
     },
 
     onSubmit() {
-      this.$emit('submit', { ...this.value })
+      this.$emit('submit', { ...this.value });
     },
 
     onCancel() {
-      this.$emit('cancel')
+      this.$emit('cancel');
     },
   },
 }

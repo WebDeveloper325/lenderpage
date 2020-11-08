@@ -13,7 +13,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import TeamForm from '~/components/team/TeamForm';
+import TeamForm from '~/components/forms/TeamForm';
 
 export default {
   name: 'TeamAdd',
@@ -35,7 +35,7 @@ export default {
   },
 
   methods: {
-    ...mapActions('team', ['fetchTeam', 'createTeam']),
+    ...mapActions('team', ['createTeam']),
 
     async onSubmit(teamForm) {
       const team = await this.createTeam(teamForm);

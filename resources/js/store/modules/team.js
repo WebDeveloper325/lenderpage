@@ -72,7 +72,7 @@ export const actions = {
 
   async updateTeam({ commit }, team) {
     try {
-      const { data } = await teamApi.put(`/${team.id}`, team);
+      const { data } = await teamApi.patch(`/${team.id}`, team);
       commit(SUCCESS(types.UPDATE_TEAM), data);
       return data;
     } catch (error) {

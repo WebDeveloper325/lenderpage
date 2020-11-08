@@ -4,9 +4,10 @@ import Card from './Card';
 import Child from './Child';
 import CrudTable from './CrudTable';
 import TableHeader from './TableHeader';
+import VeeSelect from './VeeSelect';
 import VeeTextInput from './VeeTextInput';
 
 // Components that are registered globaly.
-[Alert, Card, Child, CrudTable, TableHeader, VeeTextInput].forEach((Component) => {
+[Alert, Card, Child, CrudTable, TableHeader, VeeSelect, VeeTextInput].forEach((Component) => {
   Vue.component(Component.name, Component);
 });

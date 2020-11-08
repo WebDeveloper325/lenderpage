@@ -1,0 +1,53 @@
+<template>
+  <b-col lg="6" class="m-auto">
+    <card title="Team Add">
+      <alert :error="error" />
+
+      <player-form
+        @submit="onSubmit"
+        @cancel="onCancel"
+      />
+    </card>
+  </b-col>
+</template>
+
+<script>
+import { mapActions, mapGetters } from 'vuex';
+import PlayerForm from '~/components/forms/PlayerForm';
+import TeamMixin from '../../mixins/TeamMixin';
+
+export default {
+  name: 'PlayerAdd',
+
+  layout: 'centered',
+
+  metaInfo() {
+    return { title: 'Player Add' };
+  },
+
+  middleware: 'auth',
+
+  components: {
+    PlayerForm,
+  },
+
+  mixins: [TeamMixin],
+
+  computed: {
+    ...mapGetters('player', ['error']),
+  },
+
+  methods: {
+    ...mapActions('player', ['createPlayer']),
+
+    async onSubmit(playerForm) {
+      const player = await this.createPlayer(playerForm);
+      this.$router.push({ name: 'PlayerView', params: { id: player.id } });
+    },
+
+    onCancel() {
+      this.$router.push({ name: 'Players' })
+    },
+  },
+}
+</script>

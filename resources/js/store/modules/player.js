@@ -69,7 +69,7 @@ export const actions = {
 
   async updatePlayer({ commit }, player) {
     try {
-      const { data } = await playerApi.put(`/${player.id}`, player);
+      const { data } = await playerApi.patch(`/${player.id}`, player);
       commit(SUCCESS(types.UPDATE_PLAYER), data);
       return data;
     } catch (error) {

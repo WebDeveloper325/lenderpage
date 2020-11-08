@@ -15,8 +15,6 @@ axios.interceptors.request.use((request) => {
     request.headers.common['Accept-Language'] = locale;
   }
 
-  // request.headers['X-Socket-Id'] = Echo.socketId()
-
   return request;
 });
 

@@ -5,7 +5,7 @@
 
       <team-form
         v-if="currentTeam"
-        :defaultValue="currentTeam"
+        :default="currentTeam"
         @submit="onSubmit"
         @cancel="onCancel"
       />
@@ -15,7 +15,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import TeamForm from '~/components/team/TeamForm';
+import TeamForm from '~/components/forms/TeamForm';
 
 export default {
   name: 'TeamEdit',
