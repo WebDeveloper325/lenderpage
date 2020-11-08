@@ -71,7 +71,7 @@ export default {
   middleware: 'guest',
 
   metaInfo() {
-    return { title: 'register' };
+    return { title: 'Register' };
   },
 
   data: () => ({
