@@ -33,6 +33,7 @@
             <li class="nav-item">
               <router-link :to="{ name: 'register' }" class="nav-link" active-class="active">
                 Register
+                
               </router-link>
             </li>
           </template>

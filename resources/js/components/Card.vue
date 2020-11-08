@@ -1,30 +1,30 @@
 <template>
   <b-card>
-		<b-card-title v-if="title" class="card-title mb-4">
-			{{ title }}
-		</b-card-title>
+    <b-card-title v-if="title" class="card-title mb-4">
+      {{ title }}
+    </b-card-title>
 
-		<b-alert v-if="error" show variant="danger" dismissible>
-      {{ error }}
-    </b-alert>
+    <b-alert v-if="error" show variant="danger" dismissible>
+        {{ error }}
+      </b-alert>
 
-		<slot />
+    <slot />
   </b-card>
 </template>
 
 <script>
 export default {
-	name: 'Card',
+  name: 'Card',
 
-	props: {
-		title: {
-			type: String,
-		},
+  props: {
+    title: {
+      type: String,
+    },
 
-		error: {
-			type: String,
-		}
-	}
+    error: {
+      type: String,
+    }
+  }
 }
 </script>
 

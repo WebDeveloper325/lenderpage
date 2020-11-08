@@ -25,7 +25,12 @@
 
           <b-row>
             <b-col xs="6">
-              <checkbox v-model="remember" name="remember">Remember Me</checkbox>
+              <b-form-checkbox
+                v-model="remember"
+                name="remember"
+              >
+                Remember Me
+              </b-form-checkbox>
             </b-col>
 
             <b-col xs="6" class="text-right">
