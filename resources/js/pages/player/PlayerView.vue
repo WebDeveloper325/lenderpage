@@ -22,7 +22,11 @@
       </div>
 
       <div class="d-flex justify-content-center mt-2">
-        <h4>Team: {{ teamName }}</h4>
+        <h4>
+          <router-link :to="{ name: 'TeamView', params: { id: currentTeam.id } }">
+            Team: {{ teamName }}
+          </router-link>
+        </h4>
       </div>
     </card>
   </b-col>
@@ -49,8 +53,12 @@ export default {
       return [_.get(this.currentPlayer, 'first_name'), _.get(this.currentPlayer, 'last_name')].join(' ');
     },
 
+    currentTeam() {
+      return _.get(this.currentPlayer, 'team') || {};
+    },
+
     teamName() {
-      return _.get(this.currentPlayer, ['team', 'name']);
+      return _.get(this.currentTeam, 'name');
     },
   },
 

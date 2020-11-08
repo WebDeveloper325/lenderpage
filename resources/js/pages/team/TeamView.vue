@@ -26,6 +26,7 @@
           name="Player Table"
           :fields="playerFields"
           :items="currentTeam.players"
+          @row-clicked="playerClicked"
           hover
           striped
           class="text-center"
@@ -73,6 +74,10 @@ export default {
 
   methods: {
     ...mapActions('team', ['fetchTeam']),
+
+    playerClicked(player) {
+      this.$router.push({ name: 'PlayerView', params: { id: player.id }});
+    }
   },
 }
 </script>
