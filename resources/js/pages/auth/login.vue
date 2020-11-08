@@ -2,12 +2,13 @@
   <b-col lg="8" class="m-auto">
     <card title="Login">
       <b-col md="10" offset-md="1">
-        <b-form @submit="onLogin">
+        <b-form @submit.prevent="onLogin">
           <vee-text-input
             rules="required|email"
             label="Email"
-            label-cols="2"
-            name="Email"
+            label-cols-sm="3"
+            name="email"
+            type="email"
             v-model="form.email"
             placeholder="Your Email"
           />
@@ -15,25 +16,27 @@
           <vee-text-input
             rules="required"
             label="Password"
-            label-cols="2"
-            name="Password"
+            label-cols-sm="3"
+            name="password"
             type="password"
             v-model="form.password"
             placeholder=""
           />
 
-          <b-container>
-            <b-row align-h="around">
+          <b-row>
+            <b-col xs="6">
               <checkbox v-model="remember" name="remember">Remember Me</checkbox>
+            </b-col>
 
+            <b-col xs="6" class="text-right">
               <router-link :to="{ name: 'password.request' }" class="small ml-auto my-auto">
                 Forgot Password
               </router-link>
-            </b-row>
-          </b-container>
+            </b-col>
+          </b-row>
 
           <b-form-group align="center">
-            <b-button variant="primary">Login</b-button>
+            <b-button type="submit" variant="primary">Login</b-button>
           </b-form-group>
         </b-form>
       </b-col>
@@ -43,6 +46,7 @@
 
 <script>
 import Form from 'vform';
+import { mapActions } from 'vuex';
 import Cookies from 'js-cookie';
 
 export default {
@@ -63,23 +67,25 @@ export default {
   }),
 
   methods: {
+    ...mapActions('auth', ['saveToken', 'fetchUser']),
+
     async onLogin() {
       // Submit the form.
       const { data } = await this.form.post('/api/login');
 
       // Save the token.
-      this.$store.dispatch('auth/saveToken', {
+      this.saveToken({
         token: data.token,
-        remember: this.remember,
-      });
+        remember: this.remember
+      })
 
-      // Fetch the user.
-      await this.$store.dispatch('auth/fetchUser');
+      // fetch the user
+      this.fetchUser();
 
-      // Redirect home.
       this.redirect();
     },
 
+    // if there is a saved intended url, redirect to there, otherwise to /home
     redirect() {
       const intendedUrl = Cookies.get('intended_url');
 
