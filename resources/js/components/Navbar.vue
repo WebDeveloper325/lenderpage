@@ -1,6 +1,6 @@
 <template>
   <b-navbar toggleable="lg" type="dark" variant="info">
-    <b-navbar-brand href="#">
+    <b-navbar-brand :to="{ name: 'welcome' }">
       {{ title }}
     </b-navbar-brand>
 

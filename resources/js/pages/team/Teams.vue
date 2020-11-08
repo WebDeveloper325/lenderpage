@@ -17,6 +17,10 @@ import { formatDate } from '~/plugins/date';
 export default {
   name: 'Teams',
 
+  metaInfo() {
+    return { title: 'Teams' };
+  },
+
   middleware: 'auth',
 
   data() {

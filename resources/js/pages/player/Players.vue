@@ -17,6 +17,12 @@ import { formatDate } from '~/plugins/date';
 export default {
   name: 'Players',
 
+  metaInfo() {
+    return { title: 'Players' };
+  },
+
+  middleware: 'auth',
+
   data() {
     return {
       fields: [

@@ -9,7 +9,7 @@ export default {
   layout: 'default',
 
   metaInfo() {
-    return { title: 'welcome' };
+    return { title: 'Welcome' };
   },
 
   data: () => ({

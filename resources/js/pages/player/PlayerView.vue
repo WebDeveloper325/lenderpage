@@ -43,6 +43,12 @@ import _ from 'lodash';
 export default {
   name: 'PlayerView',
 
+  metaInfo() {
+    return { title: 'PlayerView' };
+  },
+
+  middleware: 'auth',
+
   computed: {
     ...mapGetters('player', ['currentPlayer', 'error']),
 

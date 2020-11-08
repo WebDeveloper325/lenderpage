@@ -49,6 +49,12 @@ import { formatDate } from '~/plugins/date';
 export default {
   name: 'TeamView',
 
+  metaInfo() {
+    return { title: 'TeamView' };
+  },
+
+  middleware: 'auth',
+
   data() {
     return {
       playerFields: [
