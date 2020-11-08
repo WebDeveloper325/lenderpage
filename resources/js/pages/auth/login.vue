@@ -70,19 +70,27 @@ export default {
     ...mapActions('auth', ['saveToken', 'fetchUser']),
 
     async onLogin() {
-      // Submit the form.
-      const { data } = await this.form.post('/api/login');
-
-      // Save the token.
-      this.saveToken({
-        token: data.token,
-        remember: this.remember
-      })
-
-      // fetch the user
-      this.fetchUser();
-
-      this.redirect();
+      try {
+        // Submit the form.
+        const { data } = await this.form.post('/api/login');
+  
+        // Save the token.
+        this.saveToken({
+          token: data.token,
+          remember: this.remember
+        })
+  
+        // fetch the user
+        this.fetchUser();
+        this.redirect();
+      } catch (error) {
+        this.$swal({
+          icon: 'error',
+          title: 'Error',
+          text: error.message,
+          confirmButtonText: 'OK',
+        });
+      }
     },
 
     // if there is a saved intended url, redirect to there, otherwise to /home

@@ -34,7 +34,7 @@
 
             <vee-text-input
               rules="required"
-              label="Confirm Password"
+              label="Confirm"
               label-cols-sm="3"
               name="confirm"
               type="password"
@@ -96,11 +96,11 @@ export default {
 
         // Redirect home.
         this.$router.push({ name: 'home' });
-      } catch(e) {
+      } catch(error) {
         this.$swal({
           icon: 'error',
           title: 'Error',
-          text: e.message,
+          text: error.message,
           confirmButtonText: 'OK',
         });
       }

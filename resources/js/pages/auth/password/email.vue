@@ -1,51 +1,53 @@
 <template>
-  <div class="row">
-    <div class="col-lg-8 m-auto">
-      <card title="Reset Password">
-        <form @submit.prevent="send" @keydown="form.onKeydown($event)">
+  <b-col lg="8" class="m-auto">
+    <card title="Reset Password">
+      <b-col md="10" offset-md="1">
+        <b-form @submit.prevent="onReset">
           <alert-success :form="form" :message="status" />
 
-          <!-- Email -->
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label text-md-right">Email</label>
-            <div class="col-md-7">
-              <input v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" class="form-control" type="email" name="email">
-              <has-error :form="form" field="email" />
-            </div>
-          </div>
+          <vee-text-input
+            rules="required|email"
+            label="Email"
+            label-cols-sm="2"
+            name="email"
+            type="email"
+            v-model="form.email"
+            placeholder="Your Email"
+          />
 
-          <!-- Submit Button -->
-          <div class="form-group row">
-            <div class="col-md-9 ml-md-auto">
-              <v-button :loading="form.busy">
-								Send Password Reset Link
-              </v-button>
-            </div>
-          </div>
-        </form>
-      </card>
-    </div>
-  </div>
+          <b-form-group align="center">
+            <b-button type="submit" variant="primary">
+              Reset Pasword
+            </b-button>
+          </b-form-group>
+        </b-form>
+      </b-col>
+    </card>
+  </b-col>
 </template>
 
 <script>
 import Form from 'vform'
 export default {
+  layout: 'centered',
+
   middleware: 'guest',
+
   metaInfo () {
     return { title: 'Reset Password' }
   },
+
   data: () => ({
     status: '',
     form: new Form({
       email: ''
     })
   }),
+
   methods: {
-    async send () {
+    async onReset () {
       const { data } = await this.form.post('/api/password/email')
       this.status = data.status
-      this.form.reset()
     }
   }
 }
