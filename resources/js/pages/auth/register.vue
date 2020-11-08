@@ -13,7 +13,7 @@
               label-cols-sm="3"
               name="name"
               v-model="form.name"
-              placeholder="Your Name"
+              placeholder="Enter your name"
             />
 
             <vee-text-input
@@ -22,7 +22,7 @@
               label-cols-sm="3"
               name="email"
               v-model="form.email"
-              placeholder="Your Email"
+              placeholder="Enter your email"
             />
 
             <vee-text-input
@@ -32,7 +32,7 @@
               name="password"
               type="password"
               v-model="form.password"
-              placeholder="Your Password"
+              placeholder="Enter your password"
             />
 
             <vee-text-input
@@ -42,7 +42,7 @@
               name="confirm"
               type="password"
               v-model="form.password_confirmation"
-              placeholder="Your Password"
+              placeholder="Confirm your password"
             />
 
             <b-form-group align="center">

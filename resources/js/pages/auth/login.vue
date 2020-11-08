@@ -14,7 +14,7 @@
               name="email"
               type="email"
               v-model="form.email"
-              placeholder="Your Email"
+              placeholder="Enter your email"
             />
 
             <vee-text-input
@@ -24,7 +24,7 @@
               name="password"
               type="password"
               v-model="form.password"
-              placeholder=""
+              placeholder="Enter your password"
             />
 
             <b-row>

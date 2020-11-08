@@ -4,6 +4,7 @@
       <alert :error="error" />
 
       <player-form
+        :teams="teamOptions"
         @submit="onSubmit"
         @cancel="onCancel"
       />
