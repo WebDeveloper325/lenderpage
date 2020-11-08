@@ -74,8 +74,9 @@ class PlayerController extends Controller
         $data = $request->validate(
             $this->playerRepository->crudRules()
         );
-
         $player->update($data);
+
+        $player->load('team');
         return $player;
     }
 

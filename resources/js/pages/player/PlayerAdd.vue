@@ -1,6 +1,6 @@
 <template>
   <b-col lg="6" class="m-auto">
-    <card title="Team Add">
+    <card title="Player Add">
       <alert :error="error" />
 
       <player-form

@@ -73,11 +73,12 @@ class TeamController extends Controller
      */
     public function update(Team $team, Request $request)
     {
-        $data = $request->validate([
+        $data = $request->validate(
             $this->teamRepository->crudRules($team->getKey())
-        ]);
-
+        );
         $team->update($data);
+
+        $team->load('players');
         return $team;
     }
 

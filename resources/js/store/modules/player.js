@@ -8,7 +8,7 @@ const playerApi = baseAPICreator('/api/players');
 // state
 export const state = {
   players: [],
-  currentPlayer: {},
+  currentPlayer: null,
   loading: false,
   error: null,
 };

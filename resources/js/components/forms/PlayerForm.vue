@@ -23,33 +23,31 @@
         :options="teams"
       />
 
-      <b-button
-        type="submit"
-        variant="primary"
-        :disabled="invalid"
-      >
-        Submit
-      </b-button>
+      <div class="d-flex justify-content-between align-items-center">
+        <b-button
+          type="submit"
+          variant="primary"
+          :disabled="invalid"
+        >
+          Submit
+        </b-button>
 
-      <b-button
-        variant="light"
-        @click.prevent="onCancel"
-      >
-        Cancel
-      </b-button>
+        <b-button
+          variant="light"
+          @click.prevent="onCancel"
+        >
+          Cancel
+        </b-button>
+      </div>
     </b-form>
   </validation-observer>
 </template>
 
 <script>
-import VeeSelect from '../VeeSelect';
+import _ from 'lodash';
 
 export default {
   name: 'PlayerForm',
-
-  components: {
-    VeeSelect,
-  },
 
   props: {
     default: {
@@ -72,7 +70,9 @@ export default {
   },
 
   watch: {
-    default: this.updateValue,
+    default() {
+      this.updateValue();
+    },
   },
 
   methods: {

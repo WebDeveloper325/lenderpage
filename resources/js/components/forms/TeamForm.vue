@@ -50,7 +50,9 @@ export default {
   },
 
   watch: {
-    default: this.updateValue,
+    default() {
+      this.updateValue();
+    },
   },
 
   methods: {

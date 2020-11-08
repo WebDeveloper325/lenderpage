@@ -16,7 +16,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import TeamForm from '~/components/forms/TeamForm';
+import PlayerForm from '~/components/forms/PlayerForm';
 import TeamMixin from '../../mixins/TeamMixin';
 
 export default {
@@ -31,7 +31,7 @@ export default {
   middleware: 'auth',
 
   components: {
-    TeamForm,
+    PlayerForm,
   },
 
   mixins: [TeamMixin],
@@ -49,7 +49,7 @@ export default {
 
     async onSubmit(playerForm) {
       const player = await this.updatePlayer(playerForm);
-      this.$router.push({ name: 'TeamView', params: { id: player.id } });
+      this.$router.push({ name: 'PlayerView', params: { id: player.id } });
     },
 
     onCancel() {

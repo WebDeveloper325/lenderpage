@@ -9,10 +9,11 @@
     <b-table
       :fields="fields"
       :items="items"
+			:per-page="perPage"
+      :current-page="currentPage"
+			@row-clicked="onRowClick"
       hover
       striped
-      :per-page="perPage"
-      :current-page="currentPage"
       class="text-center"
     >
 			<template v-slot:cell(action)="{ item }">
@@ -20,21 +21,21 @@
 					variant="info"
 					:to="{ name: pageView, params: { id: item.id } }"
 				>
-					View
+					<b-icon icon="eye-fill" />
 				</b-button>
 
 				<b-button
 					variant="primary"
 					:to="{ name: pageEdit, params: { id: item.id } }"
 				>
-					Edit
+					<b-icon icon="pencil-fill" />
 				</b-button>
 
 				<b-button
 					variant="danger"
 					@click="$emit('delete-item', item.id)"
 				>
-					Delete
+					<b-icon icon="trash-fill" />
 				</b-button>
 			</template>
     </b-table>
@@ -90,5 +91,11 @@ export default {
 			type: String,
 		},
 	},
+
+	methods: {
+		onRowClick(row) {
+			this.$router.push({ name: this.pageView, params: { id: row.id } });
+		}
+	}
 }
 </script>

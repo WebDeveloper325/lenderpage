@@ -9,7 +9,7 @@ const teamApi = baseAPICreator('/api/teams');
 // state
 export const state = {
   teams: [],
-  currentTeam: {},
+  currentTeam: null,
   loading: false,
   error: null,
 };

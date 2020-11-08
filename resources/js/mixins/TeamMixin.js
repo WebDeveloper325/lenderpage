@@ -5,16 +5,10 @@ export default {
     ...mapGetters('team', ['teams']),
 
     teamOptions() {
-      return [
-        {
-          value: null,
-          text: 'Please select a team',
-        },
-        ...this.teams.map((team) => ({
-          value: team.id,
-          text: team.name,
-        })),
-      ];
+      return this.teams.map((team) => ({
+        value: team.id,
+        text: team.name,
+      }));
     },
   },
 

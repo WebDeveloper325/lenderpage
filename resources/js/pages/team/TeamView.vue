@@ -17,7 +17,7 @@
           variant="light"
           :to="{ name: 'Teams' }"
         >
-          Back
+          Teams
         </b-button>
       </div>
 
