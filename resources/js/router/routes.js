@@ -3,15 +3,15 @@ function page(path) {
 }
 
 export default [
-  { path: '/', name: 'welcome', component: page('welcome.vue') },
+  { path: '/', name: 'welcome', component: page('Welcome.vue') },
 
-  { path: '/login', name: 'login', component: page('auth/login.vue') },
-  { path: '/register', name: 'register', component: page('auth/register.vue') },
-  { path: '/password/reset', name: 'password.request', component: page('auth/password/email.vue') },
+  { path: '/login', name: 'login', component: page('auth/Login.vue') },
+  { path: '/register', name: 'register', component: page('auth/Register.vue') },
+  { path: '/password/reset', name: 'password.request', component: page('auth/password/Email.vue') },
   {
     path: '/password/reset/:token',
     name: 'password.reset',
-    component: page('auth/password/reset.vue'),
+    component: page('auth/password/Reset.vue'),
   },
 
   { path: '/teams', name: 'teams', component: page('team/Teams.vue') },
