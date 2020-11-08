@@ -2,8 +2,11 @@
   <b-col lg="8" class="m-auto">
     <card title="Register">
       <b-col md="10" offset-md="1">
-        <b-form @submit.prevent="onRegister">
-          <validation-observer>
+        <validation-observer
+          ref="observer"
+          v-slot="{ invalid, handleSubmit }"
+        >
+          <b-form @submit.prevent="handleSubmit(onRegister)">
             <vee-text-input
               rules="required"
               label="Name"
@@ -43,10 +46,16 @@
             />
 
             <b-form-group align="center">
-              <b-button type="submit" variant="primary">Register</b-button>
+              <b-button
+                type="submit"
+                variant="primary"
+                :disabled="invalid"
+              >
+                Register
+              </b-button>
             </b-form-group>
-          </validation-observer>
-        </b-form>
+          </b-form>
+        </validation-observer>
       </b-col>
     </card>
   </b-col>

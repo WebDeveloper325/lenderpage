@@ -2,48 +2,62 @@
   <b-col lg="8" class="m-auto">
     <card title="Login">
       <b-col md="10" offset-md="1">
-        <b-form @submit.prevent="onLogin">
-          <vee-text-input
-            rules="required|email"
-            label="Email"
-            label-cols-sm="3"
-            name="email"
-            type="email"
-            v-model="form.email"
-            placeholder="Your Email"
-          />
+        <validation-observer
+          ref="observer"
+          v-slot="{ invalid, handleSubmit }"
+        >
+          <b-form @submit.prevent="handleSubmit(onLogin)">
+            <vee-text-input
+              rules="required|email"
+              label="Email"
+              label-cols-sm="3"
+              name="email"
+              type="email"
+              v-model="form.email"
+              placeholder="Your Email"
+            />
 
-          <vee-text-input
-            rules="required"
-            label="Password"
-            label-cols-sm="3"
-            name="password"
-            type="password"
-            v-model="form.password"
-            placeholder=""
-          />
+            <vee-text-input
+              rules="required"
+              label="Password"
+              label-cols-sm="3"
+              name="password"
+              type="password"
+              v-model="form.password"
+              placeholder=""
+            />
 
-          <b-row>
-            <b-col xs="6">
-              <b-form-checkbox
-                v-model="remember"
-                name="remember"
+            <b-row>
+              <b-col xs="6">
+                <b-form-checkbox
+                  v-model="remember"
+                  name="remember"
+                >
+                  Remember Me
+                </b-form-checkbox>
+              </b-col>
+
+              <b-col xs="6" class="text-right">
+                <router-link
+                  class="small ml-auto my-auto"
+                  :to="{ name: 'password.request' }"
+                >
+                  Forgot Password
+                </router-link>
+              </b-col>
+            </b-row>
+
+            <b-form-group align="center">
+              <b-button
+                type="submit"
+                variant="primary"
+                :disabled="invalid"
               >
-                Remember Me
-              </b-form-checkbox>
-            </b-col>
-
-            <b-col xs="6" class="text-right">
-              <router-link :to="{ name: 'password.request' }" class="small ml-auto my-auto">
-                Forgot Password
-              </router-link>
-            </b-col>
-          </b-row>
-
-          <b-form-group align="center">
-            <b-button type="submit" variant="primary">Login</b-button>
-          </b-form-group>
-        </b-form>
+                Login
+              </b-button>
+            </b-form-group>
+          </b-form>
+        </validation-observer>
       </b-col>
     </card>
   </b-col>

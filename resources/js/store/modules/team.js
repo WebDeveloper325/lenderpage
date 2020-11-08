@@ -1,7 +1,10 @@
-import axios from 'axios';
+import { baseAPICreator } from '~/plugins/apiCreator';
+
 import * as types from '../mutation-types';
 import { crudMutations } from '../utils/mutation';
 import { SUCCESS, FAILURE } from '../utils/action';
+
+const teamApi = baseAPICreator('/api/teams');
 
 // state
 export const state = {
@@ -36,46 +39,56 @@ export const mutations = {
 export const actions = {
   async fetchTeams({ commit }) {
     try {
-      const { data } = await axios.get('/api/teams');
+      const { data } = await teamApi.get('/');
       commit(SUCCESS(types.FETCH_TEAMS), data);
+      return data;
     } catch (error) {
       commit(FAILURE(types.FETCH_TEAMS), error);
+      throw Error(error);
     }
   },
 
   async createTeam({ commit }, team) {
     try {
-      const { data } = await axios.post(`/api/teams`, team);
+      const { data } = await teamApi.post(`/`, team);
       commit(SUCCESS(types.CREATE_TEAM), data);
+      return data;
     } catch (error) {
       commit(FAILURE(types.CREATE_TEAM), error);
+      throw Error(error);
     }
   },
 
   async fetchTeam({ commit }, teamId) {
     try {
-      const { data } = await axios.get(`/api/teams/${teamId}`);
+      const { data } = await teamApi.get(`/${teamId}`);
       commit(SUCCESS(types.FETCH_TEAM), data);
+      return data;
     } catch (error) {
       commit(FAILURE(types.FETCH_TEAM), error);
+      throw Error(error);
     }
   },
 
   async updateTeam({ commit }, team) {
     try {
-      const { data } = await axios.put(`/api/teams/${team.id}`, team);
+      const { data } = await teamApi.put(`/${team.id}`, team);
       commit(SUCCESS(types.UPDATE_TEAM), data);
+      return data;
     } catch (error) {
       commit(FAILURE(types.UPDATE_TEAM), error);
+      throw Error(error);
     }
   },
 
   async deleteTeam({ commit }, teamId) {
     try {
-      await axios.delete(`/api/teams/${teamId}`);
+      await teamApi.delete(`/${teamId}`);
       commit(SUCCESS(types.DELETE_TEAM), teamId);
+      return true;
     } catch (error) {
       commit(FAILURE(types.DELETE_TEAM), error);
+      throw Error(error);
     }
   },
 };

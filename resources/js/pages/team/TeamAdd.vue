@@ -1,11 +1,9 @@
 <template>
   <b-col lg="6" class="m-auto">
-    <card title="Team Edit">
-      <alert :error="error" /> 
+    <card title="Team Add">
+      <alert :error="error" />
 
       <team-form
-        v-if="currentTeam"
-        :defaultValue="currentTeam"
         @submit="onSubmit"
         @cancel="onCancel"
       />
@@ -18,12 +16,12 @@ import { mapActions, mapGetters } from 'vuex';
 import TeamForm from '~/components/team/TeamForm';
 
 export default {
-  name: 'TeamEdit',
+  name: 'TeamAdd',
 
   layout: 'centered',
 
   metaInfo() {
-    return { title: 'Team Edit' };
+    return { title: 'Team Add' };
   },
 
   middleware: 'auth',
@@ -32,19 +30,15 @@ export default {
     TeamForm,
   },
 
-  created() {
-    this.fetchTeam(this.$route.params.id);
-  },
-
   computed: {
-    ...mapGetters('team', ['currentTeam', 'error']),
+    ...mapGetters('team', ['error']),
   },
 
   methods: {
-    ...mapActions('team', ['fetchTeam', 'updateTeam']),
+    ...mapActions('team', ['fetchTeam', 'createTeam']),
 
     async onSubmit(teamForm) {
-      const team = await this.updateTeam(teamForm);
+      const team = await this.createTeam(teamForm);
       this.$router.push({ name: 'TeamView', params: { id: team.id } });
     },
 

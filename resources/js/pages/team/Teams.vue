@@ -1,5 +1,5 @@
 <template>
-  <div class="py-3">
+  <div>
     <alert :error="error" />
 
     <crud-table

@@ -3,7 +3,9 @@
     <navbar />
 
     <b-container>
-      <child />
+      <div class="py-3">
+        <child />
+      </div>
     </b-container>
   </div>
 </template>

@@ -1,5 +1,5 @@
 <template>
-  <b-col lg="8" class="m-auto py-4">
+  <b-col lg="8" class="m-auto">
     <alert :error="error" />
 
     <card v-if="currentPlayer">
