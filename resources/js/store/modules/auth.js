@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import * as types from '../mutation-types';
-import { SUCCESS, FAILURE } from '../action-util';
+import { SUCCESS, FAILURE } from '../utils/action';
 
 // state
 export const state = {

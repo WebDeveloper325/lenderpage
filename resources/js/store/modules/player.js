@@ -1,6 +1,7 @@
 import axios from 'axios';
 import * as types from '../mutation-types';
-import { SUCCESS, FAILURE } from '../action-util';
+import { crudMutations } from '../utils/mutation';
+import { SUCCESS, FAILURE } from '../utils/action';
 
 // state
 export const state = {
@@ -20,44 +21,15 @@ export const getters = {
 
 // mutations
 export const mutations = {
-  [types.FETCH_PLAYERS](state) {
-    state.loading = true;
-    state.error = null;
-  },
-
-  [SUCCESS(types.FETCH_PLAYERS)](state, players) {
-    state.players = players;
-    state.loading = false;
-  },
-
-  [FAILURE(types.FETCH_PLAYERS)](state, error) {
-    state.loading = false;
-    state.error = error.response.data.message || error.message;
-  },
-
-  [SUCCESS(types.DELETE_PLAYER)](state, playerId) {
-    state.players = [...state.players.filter((team) => team.id !== playerId)];
-  },
-
-  [FAILURE(types.DELETE_PLAYER)](state, error) {
-    state.error = error.response.data.message || error.message;
-  },
-
-  [types.FETCH_PLAYER](state) {
-    state.currentPlayer = {};
-    state.loading = true;
-    state.error = null;
-  },
-
-  [SUCCESS(types.FETCH_PLAYER)](state, player) {
-    state.currentPlayer = player;
-    state.loading = false;
-  },
-
-  [FAILURE(types.FETCH_PLAYER)](state, error) {
-    state.error = error.response.data.message || error.message;
-    state.loading = false;
-  },
+  ...crudMutations({
+    LIST_ACTION: types.FETCH_PLAYERS,
+    CREATE_ATION: types.CREATE_PLAYER,
+    READ_ACTION: types.FETCH_PLAYER,
+    UPDATE_ACTION: types.UPDATE_PLAYER,
+    DELETE_ACTION: types.DELETE_PLAYER,
+    all: 'players',
+    current: 'currentPlayer',
+  }),
 };
 
 // actions
@@ -71,12 +43,12 @@ export const actions = {
     }
   },
 
-  async deletePlayer({ commit }, playerId) {
+  async createPlayer({ commit }, player) {
     try {
-      await axios.delete(`/api/players/${playerId}`);
-      commit(SUCCESS(types.DELETE_PLAYER), playerId);
+      const { data } = await axios.post(`/api/players`, player);
+      commit(SUCCESS(types.CREATE_PLAYER), data);
     } catch (error) {
-      commit(FAILURE(types.DELETE_PLAYER), error);
+      commit(FAILURE(types.CREATE_PLAYER), error);
     }
   },
 
@@ -86,6 +58,24 @@ export const actions = {
       commit(SUCCESS(types.FETCH_PLAYER), data);
     } catch (error) {
       commit(FAILURE(types.FETCH_PLAYER), error);
+    }
+  },
+
+  async updatePlayer({ commit }, player) {
+    try {
+      const { data } = await axios.put(`/api/players/${player.id}`, player);
+      commit(SUCCESS(types.UPDATE_PLAYER), data);
+    } catch (error) {
+      commit(FAILURE(types.UPDATE_PLAYER), error);
+    }
+  },
+
+  async deletePlayer({ commit }, playerId) {
+    try {
+      await axios.delete(`/api/players/${playerId}`);
+      commit(SUCCESS(types.DELETE_PLAYER), playerId);
+    } catch (error) {
+      commit(FAILURE(types.DELETE_PLAYER), error);
     }
   },
 };

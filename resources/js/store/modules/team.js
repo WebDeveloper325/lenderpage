@@ -1,6 +1,7 @@
 import axios from 'axios';
 import * as types from '../mutation-types';
-import { SUCCESS, FAILURE } from '../action-util';
+import { crudMutations } from '../utils/mutation';
+import { SUCCESS, FAILURE } from '../utils/action';
 
 // state
 export const state = {
@@ -20,44 +21,15 @@ export const getters = {
 
 // mutations
 export const mutations = {
-  [types.FETCH_TEAMS](state) {
-    state.loading = true;
-    state.error = null;
-  },
-
-  [SUCCESS(types.FETCH_TEAMS)](state, teams) {
-    state.teams = teams;
-    state.loading = false;
-  },
-
-  [FAILURE(types.FETCH_TEAMS)](state, error) {
-    state.loading = false;
-    state.error = error.response.data.message || error.message;
-  },
-
-  [SUCCESS(types.DELETE_TEAM)](state, teamId) {
-    state.teams = [...state.teams.filter((team) => team.id !== teamId)];
-  },
-
-  [FAILURE(types.DELETE_TEAM)](state, error) {
-    state.error = error.response.data.message || error.message;
-  },
-
-  [types.FETCH_TEAM](state) {
-    state.currentTeam = {};
-    state.loading = false;
-    state.error = null;
-  },
-
-  [SUCCESS(types.FETCH_TEAM)](state, team) {
-    state.currentTeam = team;
-    state.loading = false;
-  },
-
-  [FAILURE(types.FETCH_TEAM)](state, error) {
-    state.loading = false;
-    state.error = error.response.data.message || error.message;
-  },
+  ...crudMutations({
+    LIST_ACTION: types.FETCH_TEAMS,
+    CREATE_ATION: types.CREATE_TEAM,
+    READ_ACTION: types.FETCH_TEAM,
+    UPDATE_ACTION: types.UPDATE_TEAM,
+    DELETE_ACTION: types.DELETE_TEAM,
+    all: 'teams',
+    current: 'currentTeam',
+  }),
 };
 
 // actions
@@ -71,12 +43,12 @@ export const actions = {
     }
   },
 
-  async deleteTeam({ commit }, teamId) {
+  async createTeam({ commit }, team) {
     try {
-      await axios.delete(`/api/teams/${teamId}`);
-      commit(SUCCESS(types.DELETE_TEAM), teamId);
+      const { data } = await axios.post(`/api/teams`, team);
+      commit(SUCCESS(types.CREATE_TEAM), data);
     } catch (error) {
-      commit(FAILURE(types.DELETE_TEAM), error);
+      commit(FAILURE(types.CREATE_TEAM), error);
     }
   },
 
@@ -86,6 +58,24 @@ export const actions = {
       commit(SUCCESS(types.FETCH_TEAM), data);
     } catch (error) {
       commit(FAILURE(types.FETCH_TEAM), error);
+    }
+  },
+
+  async updateTeam({ commit }, team) {
+    try {
+      const { data } = await axios.put(`/api/teams/${team.id}`, team);
+      commit(SUCCESS(types.UPDATE_TEAM), data);
+    } catch (error) {
+      commit(FAILURE(types.UPDATE_TEAM), error);
+    }
+  },
+
+  async deleteTeam({ commit }, teamId) {
+    try {
+      await axios.delete(`/api/teams/${teamId}`);
+      commit(SUCCESS(types.DELETE_TEAM), teamId);
+    } catch (error) {
+      commit(FAILURE(types.DELETE_TEAM), error);
     }
   },
 };
