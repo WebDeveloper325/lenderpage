@@ -33,7 +33,7 @@ class TeamController extends Controller
      */
     public function index()
     {
-        return $this->teamRepository->with('players')->get();
+        return $this->teamRepository->all();
     }
 
     /**
@@ -60,7 +60,8 @@ class TeamController extends Controller
      */
     public function show(Team $team)
     {
-        return $team->with('players')->get();
+        $team->load('players');
+        return $team;
     }
 
     /**

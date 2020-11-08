@@ -58,7 +58,8 @@ class PlayerController extends Controller
      */
     public function show(Player $player)
     {
-        return $player->with('team')->get();
+        $player->load('team');
+        return $player;
     }
 
     /**

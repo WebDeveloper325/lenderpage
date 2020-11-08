@@ -1,6 +1,10 @@
 <template>
-  <div class="my-3">
-		<table-header v-if="headerShow" :name="name" :addLink="pageAdd" />
+  <div class="py-3">
+		<table-header
+			v-if="headerShow"
+			:name="name"
+			:addLink="pageAdd"
+		/>
 
     <b-table
       :fields="fields"

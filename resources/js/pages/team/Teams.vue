@@ -3,9 +3,9 @@
     name="Teams"
     :items="teams"
     :fields="fields"
-    pageView="PlayerView"
-    pageEdit="PlayerEdit"
-    pageAdd="PlayerAdd"
+    pageView="TeamView"
+    pageEdit="TeamEdit"
+    pageAdd="TeamAdd"
     @delete-item="onDeleteTeam"
   />
 </template>

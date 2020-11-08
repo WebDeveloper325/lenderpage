@@ -90,7 +90,7 @@ export default {
         this.updateUser({ user });
 
         // Redirect home.
-        this.$router.push({ name: 'teams' });
+        this.$router.push({ name: 'Teams' });
       } catch(error) {
         this.$swal({
           icon: 'error',

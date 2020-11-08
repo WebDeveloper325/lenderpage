@@ -1,6 +1,6 @@
-function page(path) {
-  return () => import(/* webpackChunkName: '' */ `~/pages/${path}`).then((m) => m.default || m);
-}
+import { page } from './util';
+import teamRoutes from './team';
+import playerRoutes from './player';
 
 export default [
   { path: '/', name: 'welcome', component: page('Welcome.vue') },
@@ -14,9 +14,8 @@ export default [
     component: page('auth/password/Reset.vue'),
   },
 
-  { path: '/teams', name: 'teams', component: page('team/Teams.vue') },
-
-  { path: '/players', name: 'players', component: page('player/Players.vue') },
+  ...teamRoutes,
+  ...playerRoutes,
 
   { path: '*', component: page('errors/404.vue') },
 ];

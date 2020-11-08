@@ -8,10 +8,10 @@
 
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav v-if="user" class="ml-auto">
-        <b-nav-item :to="{ name: 'teams' }" active-class="active">
+        <b-nav-item :to="{ name: 'Teams' }" active-class="active">
           Teams
         </b-nav-item>
-        <b-nav-item :to="{ name: 'players' }" active-class="active">
+        <b-nav-item :to="{ name: 'Players' }" active-class="active">
           Players
         </b-nav-item>
         <b-nav-item-dropdown right>
