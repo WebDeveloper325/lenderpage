@@ -46,8 +46,17 @@ export default {
 
   methods: {
     async onReset () {
-      const { data } = await this.form.post('/api/password/email')
-      this.status = data.status
+      try {
+        const { data } = await this.form.post('/api/password/email')
+        this.status = data.status
+      } catch(error) {
+        this.$swal({
+          icon: 'error',
+          title: 'Error',
+          text: error.message,
+          confirmButtonText: 'OK',
+        });
+      }
     }
   }
 }

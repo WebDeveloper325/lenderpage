@@ -22,14 +22,8 @@
 </template>
 
 <script>
-import { ValidationProvider } from 'vee-validate'
-
 export default {
   name: 'VeeTextInput',
-
-  components: {
-    ValidationProvider,
-  },
 
   props: {
     vid: {

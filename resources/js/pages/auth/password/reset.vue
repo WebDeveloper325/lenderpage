@@ -1,58 +1,64 @@
 <template>
-  <div class="row">
-    <div class="col-lg-8 m-auto">
-      <card title="Reset Password">
-        <form @submit.prevent="reset" @keydown="form.onKeydown($event)">
+  <b-col lg="8" class="m-auto">
+    <card title="Reset Password">
+      <b-col md="10" offset-md="1">
+        <b-form @submit.prevent="onReset">
           <alert-success :form="form" :message="status" />
 
-          <!-- Email -->
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label text-md-right">Email</label>
-            <div class="col-md-7">
-              <input v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" class="form-control" type="email" name="email" readonly>
-              <has-error :form="form" field="email" />
-            </div>
-          </div>
+          <validation-observer>
+            <vee-text-input
+              rules="required|email"
+              label="Email"
+              label-cols-sm="3"
+              name="email"
+              type="email"
+              v-model="form.email"
+              readonly
+              placeholder="Your Email"
+            />
 
-          <!-- Password -->
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label text-md-right">Password</label>
-            <div class="col-md-7">
-              <input v-model="form.password" :class="{ 'is-invalid': form.errors.has('password') }" class="form-control" type="password" name="password">
-              <has-error :form="form" field="password" />
-            </div>
-          </div>
+            <vee-text-input
+              rules="required|password:@confirm"
+              label="Password"
+              label-cols-sm="3"
+              name="password"
+              type="password"
+              v-model="form.password"
+              placeholder="Your Password"
+            />
 
-          <!-- Password Confirmation -->
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label text-md-right">Confirm Password</label>
-            <div class="col-md-7">
-              <input v-model="form.password_confirmation" :class="{ 'is-invalid': form.errors.has('password_confirmation') }" class="form-control" type="password" name="password_confirmation">
-              <has-error :form="form" field="password_confirmation" />
-            </div>
-          </div>
+            <vee-text-input
+              rules="required"
+              label="Confirm"
+              label-cols-sm="3"
+              name="confirm"
+              type="password"
+              v-model="form.password_confirmation"
+              placeholder="Your Password"
+            />
 
-          <!-- Submit Button -->
-          <div class="form-group row">
-            <div class="col-md-9 ml-md-auto">
-              <v-button :loading="form.busy">
-                Reset Password
-              </v-button>
-            </div>
-          </div>
-        </form>
-      </card>
-    </div>
-  </div>
+            <b-form-group align="center">
+              <b-button type="submit" variant="primary">Register</b-button>
+            </b-form-group>
+          </validation-observer>
+        </b-form>
+      </b-col>
+    </card>
+  </b-col>
 </template>
 
 <script>
-import Form from 'vform'
+import Form from 'vform';
+
 export default {
+  layout: 'centered',
+
   middleware: 'guest',
+  
   metaInfo () {
     return { title: 'Reset Password' }
   },
+  
   data: () => ({
     status: '',
     form: new Form({
@@ -62,15 +68,25 @@ export default {
       password_confirmation: ''
     })
   }),
+
   created () {
     this.form.email = this.$route.query.email
     this.form.token = this.$route.params.token
   },
+
   methods: {
-    async reset () {
-      const { data } = await this.form.post('/api/password/reset')
-      this.status = data.status
-      this.form.reset()
+    async onReset () {
+      try {
+        const { data } = await this.form.post('/api/password/reset')
+        this.status = data.status
+      } catch(error) {
+        this.$swal({
+          icon: 'error',
+          title: 'Error',
+          text: error.message,
+          confirmButtonText: 'OK',
+        });
+      }
     }
   }
 }

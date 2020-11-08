@@ -55,7 +55,6 @@
 <script>
 import Form from 'vform';
 import { mapActions } from 'vuex';
-import { ValidationObserver } from 'vee-validate';
 
 export default {
   layout: 'centered',
@@ -64,10 +63,6 @@ export default {
 
   metaInfo() {
     return { title: 'register' };
-  },
-
-  components: {
-    ValidationObserver,
   },
 
   data: () => ({
