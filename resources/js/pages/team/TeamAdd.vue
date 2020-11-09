@@ -39,7 +39,7 @@ export default {
 
     async onSubmit(teamForm) {
       const team = await this.createTeam(teamForm);
-      this.$router.push({ name: 'TeamView', params: { id: team.id } });
+      this.$router.push({ name: 'Teams' });
     },
 
     onCancel() {

@@ -50,7 +50,7 @@ export const actions = {
 
   async createTeam({ commit }, team) {
     try {
-      const { data } = await teamApi.post(`/`, team);
+      const { data } = await teamApi.post('', team);
       commit(SUCCESS(types.CREATE_TEAM), data);
       return data;
     } catch (error) {

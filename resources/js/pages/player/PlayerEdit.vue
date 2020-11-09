@@ -49,7 +49,7 @@ export default {
 
     async onSubmit(playerForm) {
       const player = await this.updatePlayer(playerForm);
-      this.$router.push({ name: 'PlayerView', params: { id: player.id } });
+      this.$router.push({ name: 'Players' });
     },
 
     onCancel() {

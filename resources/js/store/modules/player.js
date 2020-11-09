@@ -49,7 +49,7 @@ export const actions = {
 
   async createPlayer({ commit }, player) {
     try {
-      const { data } = await playerApi.post(`/`, player);
+      const { data } = await playerApi.post('', player);
       commit(SUCCESS(types.CREATE_PLAYER), data);
       return data;
     } catch (error) {
